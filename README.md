@@ -10,3 +10,6 @@ To Run:
 ```bash
 pnpm start
 ```
+
+## License
+[MIT License](LICENSE)
