@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "format": "biome check --write"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
     "tsx": "^4.17.0"
   }
 }
