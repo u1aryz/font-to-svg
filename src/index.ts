@@ -5,7 +5,7 @@ import opentype from "opentype.js";
 
 const fontPath = "Jost-Bold.ttf";
 const outputSvgPath = "output.svg";
-const text = "TEST asdf";
+const text = "your text goes here";
 const letterSpacing = 10;
 const fontSize = 300;
 
