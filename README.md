@@ -10,6 +10,8 @@ Output sample:
 
 ## Getting started
 ```bash
+git clone --depth=1 git@github.com:u1aryz/font-to-svg.git
+cd font-to-svg
 bun i
 ```
 
