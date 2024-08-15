@@ -2,12 +2,15 @@ import { promises as fs } from "node:fs";
 import opentype from "opentype.js";
 import { create } from "xmlbuilder2";
 
-const fontPath = "Jost-Bold.ttf";
-const outputSvgPath = "output.svg";
+/// ------ Your DATA -----------------------
+const fontPath = "fonts/SCRIPTIN.ttf";
+// const fontPath = "fonts/Jost-Bold.ttf";
 const text = "Your text goes here";
 const letterSpacing = 10;
 const fontSize = 300;
 const color = "#0e7490";
+const outputSvgPath = "output.svg";
+// -----------------------------------------
 
 async function main() {
 	const font = await opentype.load(fontPath);
