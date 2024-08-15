@@ -11,8 +11,10 @@ const color = "#fff";
 
 async function main() {
 	const font = await opentype.load(fontPath);
-	const svg = create().ele("svg").att("xmlns", "http://www.w3.org/2000/svg");
-
+	const svg = create().ele("svg", {
+		xmlns: "http://www.w3.org/2000/svg",
+		fill: color,
+	});
 	let xOffset = 0;
 	let x1 = 0;
 	let x2 = 0;
@@ -51,7 +53,7 @@ async function main() {
 		const scaledAdvanceWidth =
 			glyph.advanceWidth * (fontSize / font.unitsPerEm);
 		xOffset += scaledAdvanceWidth + letterSpacing;
-		svg.ele("path").att("d", glyphPath.toPathData(2)).att("fill", color);
+		svg.ele("path", { d: glyphPath.toPathData(2) });
 	}
 
 	const width = x2 - x1;
