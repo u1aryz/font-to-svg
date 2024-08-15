@@ -7,6 +7,7 @@ const outputSvgPath = "output.svg";
 const text = "your text goes here";
 const letterSpacing = 10;
 const fontSize = 300;
+const color = "#fff";
 
 async function main() {
 	const font = await opentype.load(fontPath);
@@ -38,7 +39,7 @@ async function main() {
 		const scaledAdvanceWidth =
 			glyph.advanceWidth * (fontSize / font.unitsPerEm);
 		xOffset += scaledAdvanceWidth + letterSpacing;
-		svg.ele("path").att("d", glyphPath.toPathData(2));
+		svg.ele("path").att("d", glyphPath.toPathData(2)).att("fill", color);
 	}
 
 	const width = x2 - x1;
