@@ -1,5 +1,7 @@
 # font-to-svg
-Generates SVG file from text and font files using Node.js.
+Generates SVG file from text and font files using `Bun`.
+
+Probably works in `Node.js` as well.
 
 Output sample:
 
@@ -8,13 +10,26 @@ Output sample:
 
 ## Getting started
 ```bash
-pnpm i
+bun i
 ```
 
 To Run:
 ```bash
-pnpm start
+bun start \
+  --fontPath=fonts/SCRIPTIN.ttf \
+  --text=\"text here\" \
+  --letterSpacing=10 \
+  --fontSize=300 \
+  --color=#0e7490 \
+  --outputSvgPath=output.svg
 ```
+
+Show Help:
+```bash
+bun start --help
+```
+
+Check the default values from [here](https://github.com/u1aryz/font-to-svg/blob/b7cca3028831e04161363ddaf4911e3461a19479/src/args.ts#L4).
 
 ## License
 [MIT License](LICENSE)
