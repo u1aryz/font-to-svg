@@ -15,6 +15,10 @@ export const args = parseArgs({
 	text: z.string().optional().default(defaultValues.text),
 	letterSpacing: z.number().optional().default(defaultValues.letterSpacing),
 	fontSize: z.number().optional().default(defaultValues.fontSize),
-	color: z.string().optional().default(defaultValues.color),
+	color: z
+		.string()
+		.regex(/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/g)
+		.optional()
+		.default(defaultValues.color),
 	outputSvgPath: z.string().optional().default(defaultValues.outputSvgPath),
 });
