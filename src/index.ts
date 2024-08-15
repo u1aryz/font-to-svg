@@ -7,7 +7,7 @@ const outputSvgPath = "output.svg";
 const text = "Your text goes here";
 const letterSpacing = 10;
 const fontSize = 300;
-const color = "#fff";
+const color = "#0e7490";
 
 async function main() {
 	const font = await opentype.load(fontPath);
