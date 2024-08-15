@@ -13,10 +13,7 @@ async function main() {
 		fill: color,
 	});
 	let xOffset = 0;
-	let x1 = 0;
-	let x2 = 0;
-	let y1 = 0;
-	let y2 = 0;
+	let [x1, x2, y1, y2] = [0, 0, 0, 0];
 
 	for (let i = 0; i < text.length; i++) {
 		const char = text[i];
