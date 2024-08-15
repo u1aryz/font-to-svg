@@ -4,7 +4,7 @@ import { create } from "xmlbuilder2";
 
 const fontPath = "Jost-Bold.ttf";
 const outputSvgPath = "output.svg";
-const text = "your text goes here";
+const text = "Your text goes here";
 const letterSpacing = 10;
 const fontSize = 300;
 const color = "#fff";
@@ -22,6 +22,18 @@ async function main() {
 	for (let i = 0; i < text.length; i++) {
 		const char = text[i];
 		const glyph = font.charToGlyph(char);
+
+		// apply kerning
+		if (i > 0) {
+			const previousChar = text[i - 1];
+			const kerningValue = font.getKerningValue(
+				font.charToGlyph(previousChar),
+				glyph,
+			);
+			const kerningOffset = kerningValue * (fontSize / font.unitsPerEm);
+			xOffset += kerningOffset;
+		}
+
 		const glyphPath = glyph.getPath(xOffset, 0, fontSize);
 		const bbox = glyphPath.getBoundingBox();
 
