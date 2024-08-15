@@ -1,7 +1,6 @@
 import { promises as fs } from "node:fs";
-import * as d3 from "d3";
-import { JSDOM } from "jsdom";
 import opentype from "opentype.js";
+import { create } from "xmlbuilder2";
 
 const fontPath = "Jost-Bold.ttf";
 const outputSvgPath = "output.svg";
@@ -11,9 +10,7 @@ const fontSize = 300;
 
 async function main() {
 	const font = await opentype.load(fontPath);
-	const document = new JSDOM().window.document;
-	const svg = d3.select(document.body).append("svg");
-	svg.attr("xmlns", "http://www.w3.org/2000/svg");
+	const svg = create().ele("svg").att("xmlns", "http://www.w3.org/2000/svg");
 
 	let xOffset = 0;
 	let x1 = 0;
@@ -41,13 +38,16 @@ async function main() {
 		const scaledAdvanceWidth =
 			glyph.advanceWidth * (fontSize / font.unitsPerEm);
 		xOffset += scaledAdvanceWidth + letterSpacing;
-		svg.append("path").attr("d", glyphPath.toPathData(2));
+		svg.ele("path").att("d", glyphPath.toPathData(2));
 	}
 
 	const width = x2 - x1;
 	const height = y2 - y1;
-	svg.attr("viewBox", [x1, y1, width, height]);
-	await fs.writeFile(outputSvgPath, document.body.innerHTML);
+	svg.att("viewBox", `${x1} ${y1} ${width} ${height}`);
+	await fs.writeFile(
+		outputSvgPath,
+		svg.end({ prettyPrint: true, headless: true }),
+	);
 }
 
 main().catch(console.error);
