@@ -53,6 +53,10 @@ async function main() {
 		y1 = Math.min(y1, bbox.y1);
 		y2 = Math.max(y2, bbox.y2);
 
+		if (!glyph.advanceWidth) {
+			throw new Error("cannot get advanceWidth");
+		}
+
 		const scaledAdvanceWidth =
 			glyph.advanceWidth * (fontSize / font.unitsPerEm);
 		xOffset += scaledAdvanceWidth + letterSpacing;
