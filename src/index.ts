@@ -1,17 +1,14 @@
 import { promises as fs } from "node:fs";
 import opentype from "opentype.js";
-import { create } from "xmlbuilder2";
 import { args } from "./args";
+import { Svg } from "./svg";
 
 async function main() {
 	const { fontPath, text, letterSpacing, fontSize, color, outputSvgPath } =
 		args;
 
 	const font = await opentype.load(fontPath);
-	const svg = create().ele("svg", {
-		xmlns: "http://www.w3.org/2000/svg",
-		fill: color,
-	});
+	const svg = new Svg().setFill(color);
 	let xOffset = 0;
 	let [x1, x2, y1, y2] = [0, 0, 0, 0];
 
@@ -51,16 +48,13 @@ async function main() {
 		const scaledAdvanceWidth =
 			glyph.advanceWidth * (fontSize / font.unitsPerEm);
 		xOffset += scaledAdvanceWidth + letterSpacing;
-		svg.ele("path", { d: glyphPath.toPathData(2) });
+		svg.addPath({ d: glyphPath.toPathData(2) });
 	}
 
 	const width = x2 - x1;
 	const height = y2 - y1;
-	svg.att("viewBox", `${x1} ${y1} ${width} ${height}`);
-	await fs.writeFile(
-		outputSvgPath,
-		svg.end({ prettyPrint: true, headless: true }),
-	);
+	svg.setViewBox({ x: x1, y: y1, width, height });
+	await fs.writeFile(outputSvgPath, svg.end());
 }
 
 main().catch(console.error);
