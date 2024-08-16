@@ -1,14 +1,14 @@
 import { promises as fs } from "node:fs";
 import opentype from "opentype.js";
 import { args } from "./args";
-import { Svg } from "./svg";
+import { createSvg } from "./svg";
 
 async function main() {
 	const { fontPath, text, letterSpacing, fontSize, color, outputSvgPath } =
 		args;
 
 	const font = await opentype.load(fontPath);
-	const svg = new Svg().setFill(color);
+	const svg = createSvg().setFill(color);
 	const scale = fontSize / font.unitsPerEm;
 	let xOffset = 0;
 	let [x1, x2, y1, y2] = [0, 0, 0, 0];

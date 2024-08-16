@@ -1,36 +1,44 @@
 import { create } from "xmlbuilder2";
 import type { XMLBuilder } from "xmlbuilder2/lib/interfaces";
 
-export class Svg {
-	private builder: XMLBuilder;
+type ViewBox = {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+};
 
-	constructor() {
-		this.builder = create().ele("svg", {
-			xmlns: "http://www.w3.org/2000/svg",
-		});
-	}
+type SvgPathAttributes = {
+	d: string;
+	fill?: string;
+	stroke?: string;
+	strokeWidth?: number;
+	// 	TODO others...
+};
 
-	public setFill(color: string): Svg {
-		this.builder.att("fill", color);
-		return this;
-	}
+export function createSvg() {
+	const builder: XMLBuilder = create().ele("svg", {
+		xmlns: "http://www.w3.org/2000/svg",
+	});
 
-	public addPath({ d }: { d: string }): Svg {
-		this.builder.ele("path", { d });
-		return this;
-	}
+	return {
+		setFill(color: string) {
+			builder.att("fill", color);
+			return this;
+		},
 
-	public setViewBox({
-		x,
-		y,
-		width,
-		height,
-	}: { x: number; y: number; width: number; height: number }): Svg {
-		this.builder.att("viewBox", `${x} ${y} ${width} ${height}`);
-		return this;
-	}
+		addPath(attrs: SvgPathAttributes) {
+			builder.ele("path", { ...attrs });
+			return this;
+		},
 
-	public end(): string {
-		return this.builder.end({ prettyPrint: true, headless: true });
-	}
+		setViewBox({ x, y, width, height }: ViewBox) {
+			builder.att("viewBox", `${x} ${y} ${width} ${height}`);
+			return this;
+		},
+
+		end() {
+			return builder.end({ prettyPrint: true, headless: true });
+		},
+	};
 }
