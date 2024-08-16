@@ -19,12 +19,12 @@ bun i
 To Run:
 ```bash
 bun start \
-  --fontPath=fonts/SCRIPTIN.ttf \
+  --fontPath=path/to/fontfile.ttf \
   --text=\"text here\" \
   --letterSpacing=10 \
   --fontSize=300 \
   --color=#0e7490 \
-  --outputSvgPath=output.svg
+  --outputSvgPath=path/to/output.svg
 ```
 
 Show Help:
