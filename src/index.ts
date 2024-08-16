@@ -9,6 +9,7 @@ async function main() {
 
 	const font = await opentype.load(fontPath);
 	const svg = new Svg().setFill(color);
+	const scale = fontSize / font.unitsPerEm;
 	let xOffset = 0;
 	let [x1, x2, y1, y2] = [0, 0, 0, 0];
 
@@ -23,7 +24,7 @@ async function main() {
 				font.charToGlyph(previousChar),
 				glyph,
 			);
-			const kerningOffset = kerningValue * (fontSize / font.unitsPerEm);
+			const kerningOffset = kerningValue * scale;
 			xOffset += kerningOffset;
 		}
 
@@ -45,8 +46,7 @@ async function main() {
 			throw new Error("cannot get advanceWidth");
 		}
 
-		const scaledAdvanceWidth =
-			glyph.advanceWidth * (fontSize / font.unitsPerEm);
+		const scaledAdvanceWidth = glyph.advanceWidth * scale;
 		xOffset += scaledAdvanceWidth + letterSpacing;
 		svg.addPath({ d: glyphPath.toPathData(2) });
 	}
