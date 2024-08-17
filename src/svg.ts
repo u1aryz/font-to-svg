@@ -27,6 +27,12 @@ export function createSvg() {
 			return this;
 		},
 
+		setStroke(color: string, width?: number) {
+			builder.att("stroke", color);
+			if (width) builder.att("stroke-width", `${width}px`);
+			return this;
+		},
+
 		addPath(attrs: SvgPathAttributes) {
 			builder.ele("path", { ...attrs });
 			return this;
