@@ -16,6 +16,10 @@ async function main() {
 	for (let i = 0; i < text.length; i++) {
 		const glyph = font.charToGlyph(text[i]);
 
+		if (!glyph.advanceWidth) {
+			throw new Error("cannot get advanceWidth");
+		}
+
 		// apply kerning
 		if (i > 0) {
 			const kerningValue = font.getKerningValue(
@@ -29,14 +33,14 @@ async function main() {
 		const bbox = glyphPath.getBoundingBox();
 
 		// update ViewBox
-		if (i === 0) x1 = bbox.x1;
-		x2 = bbox.x2;
+		if (i === 0) {
+			x1 = bbox.x1;
+		}
+		if (glyph.advanceWidth > 0) {
+			x2 = xOffset + glyph.advanceWidth * scale;
+		}
 		y1 = Math.min(y1, bbox.y1);
 		y2 = Math.max(y2, bbox.y2);
-
-		if (!glyph.advanceWidth) {
-			throw new Error("cannot get advanceWidth");
-		}
 
 		xOffset += glyph.advanceWidth * scale + letterSpacing;
 		svg.addPath({ d: glyphPath.toPathData(2) });
