@@ -13,7 +13,7 @@ type SvgPathAttributes = {
 	fill?: string;
 	stroke?: string;
 	strokeWidth?: number;
-	// 	TODO others...
+	// TODO others...
 };
 
 export function createSvg() {
